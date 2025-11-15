@@ -1,0 +1,47 @@
+To start individual service
+----------------------------------
+Commands – Navigate to the path where the kafka is located and then run the below command.
+1. Start Zookeeper Server
+bin/zookeeper-server-start.sh config/zookeeper.properties
+
+2. Start Kafka Server / Broker
+bin/kafka-server-start.sh config/server.properties
+
+3. Create topic
+bin/kafka-topics.sh --bootstrap-server localhost:9092 --create --topic NewTopic --partitions 3 --replication-factor 1
+
+4. list out all topic names
+bin/kafka-topics.sh --bootstrap-server localhost:9092 --list
+
+5. Describe topics
+bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe --topic NewTopic
+
+6. Produce message
+7. bin/kafka-console-producer.sh --bootstrap-server localhost:9092 --topic NewTopic
+
+8. consume message
+bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic NewTopic --from-beginning
+
+
+To test the application
+----------------------------
+1. Publish the message
+url: GET http://localhost:9191/producer-app/publish/hellokumar
+     POST http://localhost:9191/producer-app/publish
+     Payload: {
+                "id": 243,
+                "name": "kumar",
+                "email": "kumar@gmail.com",
+                "contactNo": "9876543210"
+              }
+     POST http://localhost:9191/producer-app/publish-partition
+     Payload: {
+                "id": 243,
+                "name": "kumar",
+                "email": "kumar@gmail.com",
+                "contactNo": "9876543210"
+              }
+
+
+Note: Publish the message to specific partition (http://localhost:9191/producer-app/publish-partition)
+      Integration test has written using TestContainer
