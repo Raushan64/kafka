@@ -42,8 +42,19 @@ url: GET http://localhost:9191/producer-app/publish/hellokumar
                 "contactNo": "9876543210"
               }
 
+2. Publish the message for error-handling
+url: POST http://localhost:9191/producer-app/publish-error-handling
+     Payload: {
+                  "id": 3,
+                  "name": "kumar",
+                  "email": "kumar@gmail.com",
+                  "contactNo": "9876543210"
+              }
+
 Note: Publish the message to specific partition (http://localhost:9191/producer-app/publish-partition)
+      For Error Handling you can use backoff(Retry Processing delayTime), exclude Exception(means do not execute this excluded Exception)
       Integration test has written using TestContainer
+
 
 
 Reference:

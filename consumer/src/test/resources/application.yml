@@ -13,3 +13,8 @@ spring:
           json:
             trusted:
               packages: com.kumar.dto
+
+
+app:
+  topic:
+    name: test-topic

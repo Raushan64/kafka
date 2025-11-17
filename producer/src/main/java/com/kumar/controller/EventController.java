@@ -35,5 +35,10 @@ public class EventController {
         publisher.sendEventsToPartitionTopic(customer);
     }
 
+    @PostMapping("/publish-error-handling")
+    public void sendEventsToErrorHandling(@RequestBody Customer customer) {
+        publisher.sendEventsToErrorHandlingTopic(customer);
+    }
+
 
 }
