@@ -49,7 +49,7 @@ public class KafkaMessagePublisher {
         });
     }
 
-    //send the message to specific partition and consumer read this
+    //send the Customer message
     public void sendEventsToTopic(Customer customer) {
         CompletableFuture<SendResult<String, Customer>> future = templateCustomer.send("kumar-cust", customer);
         future.whenComplete((result, ex) -> {
