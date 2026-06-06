@@ -23,6 +23,12 @@ public class KafkaMessageListener {
 
     Logger log = LoggerFactory.getLogger(KafkaMessageListener.class);
 
+    /*@Value("${app.topic.name}")
+    private String topicName;
+    
+    @Autowired
+    private KafkaTemplate<String, Customer> templateCustomer;*/
+
     @RetryableTopic(attempts = "4", backoff = @Backoff(delay = 3000, multiplier = 1.5, maxDelay = 15000), exclude = {NullPointerException.class})// 3 topic N-1
     @KafkaListener(topics = "${app.topic.name}", groupId = "jt-group-e")
     public void consumeEvents(Customer customer, @Header(KafkaHeaders.RECEIVED_TOPIC) String topic, @Header(KafkaHeaders.OFFSET) long offset) {
@@ -42,6 +48,8 @@ public class KafkaMessageListener {
     @DltHandler
     public void listenDLT(Customer customer, @Header(KafkaHeaders.RECEIVED_TOPIC) String topic, @Header(KafkaHeaders.OFFSET) long offset) {
         log.info("DLT Received from retry : {} , from {} , offset {}",customer.getEmail(),topic,offset);
+        // After retry, still you want to recover, Republish Message to Original Topic again.
+        // templateCustomer.send(topicName, customer);
     }
 
     //consume the message from partition-2
