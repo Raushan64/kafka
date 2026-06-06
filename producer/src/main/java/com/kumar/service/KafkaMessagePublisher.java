@@ -25,6 +25,7 @@ public class KafkaMessagePublisher {
     @Value("${app.topic.name}")
     private String topicName;
 
+    //send the Plain String message
     public void sendMessageToTopic(String message){
         CompletableFuture<SendResult<String, String>> future = templateString.send("kumar-str", message);
         future.whenComplete((result,ex)->{
